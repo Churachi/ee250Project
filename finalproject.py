@@ -92,7 +92,7 @@ def detect_melody(duration):
     # Check if the dominant frequency corresponds to a note in the melody
     return check_pitch(dominant_frequency)
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 #this section is covered in publisher_and_subscriber_example.py
 client = mqtt.Client()
 # client.on_message = on_message
