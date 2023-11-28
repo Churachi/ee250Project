@@ -26,7 +26,7 @@ pitch_ranges = {
 }
 
 # Define the melody sequence
-melody_sequence = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4']
+melody_sequence = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4']
 
 # Grovepi setup
 PORT_BUTTON = 4     # D4
@@ -76,7 +76,7 @@ try:
                 if detected_note == melody_sequence[i]:
                     lcd.setText_norefresh("Note%d: Correct" %(i + 1))
                     time.sleep(1)
-                    if i == len(melody_sequence):
+                    if (i + 1) == len(melody_sequence):
                         lcd.setText_norefresh("Congratulations! \nYou finished!")
                 else:
                     lcd.setText_norefresh("Note%d: Incorrect The note is %s" %(i + 1, melody_sequence[i]))
