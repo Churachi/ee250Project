@@ -66,7 +66,7 @@ try:
             print("0")
             time.sleep(1)
         
-            for i in melody_sequence:
+            for i in range(0, 8):
                 lcd.setText_norefresh("Play Note")
                 detected_note = detect_melody(3)  # Adjust the duration based on your requirement
                 if detected_note == melody_sequence[i]:
