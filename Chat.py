@@ -86,7 +86,7 @@ try:
             time.sleep(1)
             print("0")
             time.sleep(1)
-            detect_melody(1)  # Adjust the duration based on your requirement
+            detect_melody(3)  # Adjust the duration based on your requirement
             time.sleep(1)  # Add a delay between each detection to avoid false positives
 except KeyboardInterrupt:
     grovepi.cleanup()
