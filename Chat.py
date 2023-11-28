@@ -1,7 +1,7 @@
 import sounddevice as sd
 import numpy as np
 import time
-import RPi.GPIO as GPIO
+import grovepi
 import grove_rgb_lcd as lcd
 
 # Define pitch ranges
@@ -15,9 +15,9 @@ pitch_ranges = {
 # Define the melody sequence
 melody_sequence = ['D4', 'E4', 'G4', 'A4', 'G4', 'E4', 'G4', 'A4', 'G4']
 
-# GPIO setup
+# Grovepi setup
 PORT_BUTTON = 4     # D4
-GPIO.pinMode(PORT_BUTTON, "INPUT")
+grovepi.pinMode(PORT_BUTTON, "INPUT")
 
 # Function to check if the input frequency matches any pitch range
 def check_pitch(frequency):
@@ -67,8 +67,8 @@ def detect_melody(duration):
 try:
     while True:
         # Check for input
-        if GPIO.digitalRead(PORT_BUTTON):
+        if grovepi.digitalRead(PORT_BUTTON):
             detect_melody(7)  # Adjust the duration based on your requirement
             time.sleep(1)  # Add a delay between each detection to avoid false positives
 except KeyboardInterrupt:
-    GPIO.cleanup()
+    grovepi.cleanup()
