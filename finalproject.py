@@ -58,6 +58,7 @@ def laptop_callback(client, userdata, message):
         else:
             comment = "Your child did not pass"
         client.publish("finalproject/rpi", comment)
+        print(comment)
 
     except ValueError:
         pass
