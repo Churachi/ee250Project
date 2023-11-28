@@ -22,6 +22,7 @@ lcd.setRGB(204, 153, 255)
 
 # Function to check if the input frequency matches any pitch range
 def check_pitch(frequency):
+    print("Checking pitch")
     for note, pitch in pitch_ranges.items():
         if pitch - 5 <= frequency <= pitch + 5:
             return note
@@ -35,8 +36,10 @@ def detect_melody(duration):
     print("I am recording")
     audio_data = sd.rec(int(sample_rate * duration), channels=1, dtype='int16')
     sd.wait()
+    print("I am done recording")
 
     # Perform Fourier transform
+    print("Performing Fourier")
     fft_result = np.fft.fft(audio_data[:, 0])
     freqs = np.fft.fftfreq(len(fft_result), 1 / sample_rate)
     freqs = freqs[:len(freqs) // 2]
@@ -48,7 +51,9 @@ def detect_melody(duration):
     # Check if the dominant frequency corresponds to a note in the melody
     detected_note = check_pitch(dominant_frequency)
 
+    print("Detecting note")
     if detected_note == melody_sequence[0]:
+        print("note detected in melody")
         # If the first note is detected, check for the entire melody sequence
         melody_detected = True
         for i in range(1, len(melody_sequence)):
@@ -64,11 +69,12 @@ def detect_melody(duration):
         else:
             print("Melody not detected")
             lcd.setText_norefresh("Melody is wrong")
+    else:
+        print("note not in melody")
 
 # Main loop
 try:
     while True:
-        print("Main Loop is Running")
         # Check for input
         if grovepi.digitalRead(PORT_BUTTON):
             print("Button pressed")
