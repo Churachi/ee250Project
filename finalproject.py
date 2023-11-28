@@ -3,17 +3,9 @@ import numpy as np
 import time
 import grovepi
 import grove_rgb_lcd as lcd
-from tkinter import *
-from tkinter import ttk
-import PySimpleGUI as sg
-import sys
-import os
+import paho.mqtt.client as mqtt
+import time
 
-export DISPLAY=localhost:0.0
-
-if os.environ.get('DISPLAY','') == '':
-    print('no display found. Using :0.0')
-    os.environ.__setitem__('DISPLAY', ':0.0')
 
 pitch_ranges = {
     'C4': 523.33,
@@ -33,55 +25,39 @@ PORT_BUTTON = 4     # D4
 grovepi.pinMode(PORT_BUTTON, "INPUT")
 lcd.setRGB(204, 153, 255) # initializes to a nice faint purple
 
-class PianoTest:
+def on_connect(client, userdata, flags, rc):
+    print("Connected to server (i.e., broker) with result code "+str(rc))
 
-    def __init__(self, root):
-        master = Tkinter.Tk()
-        master.title("Piano Test")
+    #subscribe to topics of interest here
+    client.subscribe("finalproject/laptop")
+    client.message_callback_add("cxzhu/laptop",led_callback)
 
-        # mainframe = ttk.Frame(root, padding="20 20 12 12")
-        # mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
-        root.columnconfigure(0, weight=1)
-        root.rowconfigure(0, weight=1)
-       
-        self.numcorrect = StringVar()
+def led_callback(client, userdata, message):
+    try:
+        done = False
+        passed = True
+        while done == False:
+            if grovepi.digitalRead(PORT_BUTTON):
+                done = True
+                for i in range(0, len(melody_sequence)):
+                    lcd.setText_norefresh("Play Note")
+                    detected_note = detect_melody(3)  # Adjust the duration based on your requirement
+                    if detected_note == melody_sequence[i]:
+                        lcd.setText_norefresh("Note%d: Correct" %(i + 1))
+                        time.sleep(1)
+                    else:
+                        lcd.setText_norefresh("Note%d: Incorrect \nThe note is %s" %(i + 1, melody_sequence[i]))
+                        time.sleep(1)
+                        passed = False
+                        break    
+        if passed == True:
+            comment = 'Your child passed!'
+        else:
+            comment = "Your child did not pass"
+        client.publish("cxzhu/rpi", comment)
 
-        self.passed = StringVar()
-        ttk.Label(mainframe, text="Piano Test").grid(column=2, row=1, sticky=(W, E))
-        ttk.Label(mainframe, textvariable=self.passed).grid(column=2, row=2, sticky=(W, E))
-        ttk.Button(mainframe, text="Start new test", command=self.test).grid(column=3, row=4, sticky=(W, S))
-
-        for child in mainframe.winfo_children(): 
-            child.grid_configure(padx=5, pady=5)
-
-        # feet_entry.focus()
-        root.bind("<Return>", self.test)
-        
-    def test(self):
-        try:
-            done = False
-            passed = True
-            while done == False:
-                if grovepi.digitalRead(PORT_BUTTON):
-                    done = True
-                    for i in range(0, len(melody_sequence)):
-                        lcd.setText_norefresh("Play Note")
-                        detected_note = detect_melody(3)  # Adjust the duration based on your requirement
-                        if detected_note == melody_sequence[i]:
-                            lcd.setText_norefresh("Note%d: Correct" %(i + 1))
-                            time.sleep(1)
-                        else:
-                            lcd.setText_norefresh("Note%d: Incorrect \nThe note is %s" %(i + 1, melody_sequence[i]))
-                            time.sleep(1)
-                            passed = False
-                            break    
-            if passed == True:
-                # value = float(self.feet.get())
-                self.passed.set('You passed!')
-            else: 
-                self.passed.set('You did not pass')
-        except ValueError:
-            pass
+    except ValueError:
+        pass
 
 # Function to check if the input frequency matches any pitch range
 def check_pitch(frequency):
@@ -115,7 +91,10 @@ def detect_melody(duration):
     # Check if the dominant frequency corresponds to a note in the melody
     return check_pitch(dominant_frequency)
 
-
-master = Tk()
-PianoTest(master)
-master.mainloop()
+if __name__ == '__main__':
+    #this section is covered in publisher_and_subscriber_example.py
+    client = mqtt.Client()
+    # client.on_message = on_message
+    client.on_connect = on_connect
+    client.connect(host="test.mosquitto.org", port=1883, keepalive=60)
+    client.loop_start()
