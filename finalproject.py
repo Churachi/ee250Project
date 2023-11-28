@@ -12,6 +12,9 @@ if os.environ.get('DISPLAY','') == '':
     print('no display found. Using :0.0')
     os.environ.__setitem__('DISPLAY', ':0.0')
 
+setting = os.environ.__getitem__('DISPLAY')
+window = tk.Tk(screenName = setting)
+
 pitch_ranges = {
     'C4': 523.33,
     'D4': 293.66,
