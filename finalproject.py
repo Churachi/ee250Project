@@ -23,6 +23,7 @@ melody_sequence = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4']
 # Grovepi setup
 PORT_BUTTON = 4     # D4
 grovepi.pinMode(PORT_BUTTON, "INPUT")
+lcd.textCommand(0x01)
 lcd.setRGB(204, 153, 255) # initializes to a nice faint purple
 
 def on_connect(client, userdata, flags, rc):
