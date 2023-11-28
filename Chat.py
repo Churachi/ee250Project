@@ -80,5 +80,7 @@ try:
                     lcd.setText_norefresh("Note%d: Incorrect \nThe note is %s" %(i + 1, melody_sequence[i]))
                     time.sleep(1)
                     break    
+                
+                lcd.setText_norefresh("Congratulations!/nYou finished!")
 except KeyboardInterrupt:
     grovepi.cleanup()
