@@ -50,34 +50,7 @@ def detect_melody(duration):
     dominant_frequency = freqs[np.argmax(fft_result)]
 
     # Check if the dominant frequency corresponds to a note in the melody
-    detected_note = check_pitch(dominant_frequency)
-
-    if detected_note == melody_sequence[0]:
-        lcd.setText_norefresh("Note 1: Correct")
-        # If the first note is detected, check for the entire melody sequence
-        
-        time.sleep(0.5)  # Add a short delay between notes
-        detect_melody(3)  # Record the next note
-        if detected_note == melody_sequence[1]:
-            lcd.setText_norefresh("Note 2: Correct")
-
-            time.sleep(0.5)  # Add a short delay between notes
-            detect_melody(3)  # Record the next note
-
-            if detected_note == melody_sequence[2]:
-                lcd.setText_norefresh("Note 3: Correct")
-
-                time.sleep(0.5)  # Add a short delay between notes
-                detect_melody(3)  # Record the next note
-
-            else:
-                lcd.setText_norefresh("Note 3: Incorrect. Try Again.")
-
-        else:
-                lcd.setText_norefresh("Note 2: Incorrect. Try Again.")
-
-    else:
-        lcd.setText_norefresh("Note 1: Incorrect. Try Again.")
+    return check_pitch(dominant_frequency)
 
 # Main loop
 try:
@@ -92,7 +65,55 @@ try:
             time.sleep(1)
             print("0")
             time.sleep(1)
-            detect_melody(3)  # Adjust the duration based on your requirement
-            time.sleep(1)  # Add a delay between each detection to avoid false positives
+        
+            for i in melody_sequence:
+                lcd.setText_norefresh("Play Note")
+                detected_note = detect_melody(3)  # Adjust the duration based on your requirement
+                if detected_note == melody_sequence[i]:
+                    lcd.setText_norefresh("Note%d: Correct" %(i + 1))
+                    time.sleep(1)
+                else:
+                    lcd.setText_norefresh("Note%d: Incorrect" %(i + 1))
+                    time.sleep(1)
+                    break
+                
+
+"""
+            if detected_note == melody_sequence[0]:
+                lcd.setText_norefresh("Note1: Correct")
+                # If the first note is detected, check for the entire melody sequence
+        
+                time.sleep(0.5)  # Add a short delay between notes
+                detected_note = detect_melody(3)  # Record the next note
+                if detected_note == melody_sequence[1]:
+                    lcd.setText_norefresh("Note2: Correct")
+
+                    time.sleep(0.5)  # Add a short delay between notes
+                    detected_note = detect_melody(3)  # Record the next note
+
+                    if detected_note == melody_sequence[2]:
+                        lcd.setText_norefresh("Note3: Correct")
+
+                        time.sleep(0.5)  # Add a short delay between notes
+                        detected_note = detect_melody(3)  # Record the next note
+
+                        if detected_note == melody_sequence[3]:
+                            lcd.setText_norefresh("Note3: Correct")
+
+                            time.sleep(0.5)  # Add a short delay between notes
+                            detected_note = detect_melody(3)  # Record the next note
+
+                        else:
+                            lcd.setText_norefresh("Note3: Incorrect.")
+
+                    else:
+                        lcd.setText_norefresh("Note3: Incorrect.")
+
+                else:
+                    lcd.setText_norefresh("Note2: Incorrect.")
+
+            else:
+                lcd.setText_norefresh("Note1: Incorrect.")
+                """
 except KeyboardInterrupt:
     grovepi.cleanup()
