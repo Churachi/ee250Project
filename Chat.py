@@ -75,44 +75,6 @@ try:
                 else:
                     lcd.setText_norefresh("Note%d: Incorrect" %(i + 1))
                     time.sleep(1)
-                    break
-                
-
-"""
-            if detected_note == melody_sequence[0]:
-                lcd.setText_norefresh("Note1: Correct")
-                # If the first note is detected, check for the entire melody sequence
-        
-                time.sleep(0.5)  # Add a short delay between notes
-                detected_note = detect_melody(3)  # Record the next note
-                if detected_note == melody_sequence[1]:
-                    lcd.setText_norefresh("Note2: Correct")
-
-                    time.sleep(0.5)  # Add a short delay between notes
-                    detected_note = detect_melody(3)  # Record the next note
-
-                    if detected_note == melody_sequence[2]:
-                        lcd.setText_norefresh("Note3: Correct")
-
-                        time.sleep(0.5)  # Add a short delay between notes
-                        detected_note = detect_melody(3)  # Record the next note
-
-                        if detected_note == melody_sequence[3]:
-                            lcd.setText_norefresh("Note3: Correct")
-
-                            time.sleep(0.5)  # Add a short delay between notes
-                            detected_note = detect_melody(3)  # Record the next note
-
-                        else:
-                            lcd.setText_norefresh("Note3: Incorrect.")
-
-                    else:
-                        lcd.setText_norefresh("Note3: Incorrect.")
-
-                else:
-                    lcd.setText_norefresh("Note2: Incorrect.")
-
-            else:
-                lcd.setText_norefresh("Note1: Incorrect.")
+                    break    
 except KeyboardInterrupt:
     grovepi.cleanup()
