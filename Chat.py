@@ -24,7 +24,7 @@ lcd.setRGB(204, 153, 255)
 def check_pitch(frequency):
     print("Checking pitch")
     for note, pitch in pitch_ranges.items():
-        print(pitch)
+        print(frequency)
         if pitch - 5 <= frequency <= pitch + 5:
             return note
     return None
