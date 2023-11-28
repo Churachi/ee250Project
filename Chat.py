@@ -9,14 +9,14 @@ pitch_ranges = {
     'C4': 261.63,
     'D4': 293.66,
     'E4': 329.63,
-    'F4': 349.23
+    'F4': 349.23,
     'G4': 392.00,
     'A4': 440.00,
     'B4': 493.88
 }
 
 # Define the melody sequence
-melody_sequence = ['D4', 'E4', 'G4', 'A4', 'G4', 'E4', 'G4', 'A4', 'G4']
+melody_sequence = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4']
 
 # Grovepi setup
 PORT_BUTTON = 4     # D4
@@ -73,7 +73,7 @@ try:
             lcd.setText_norefresh("0")
             time.sleep(1)
         
-            for i in range(0, 8):
+            for i in range(0, len(melody_sequence)):
                 lcd.setText_norefresh("Play Note")
                 detected_note = detect_melody(3)  # Adjust the duration based on your requirement
                 if detected_note == melody_sequence[i]:
