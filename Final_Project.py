@@ -1,7 +1,7 @@
 import sounddevice as sd
 
 # Define some settings
-device = 0    # we use my USB sound card device
+device = 1    # we use my USB sound card device
 duration = 0.5  # seconds
 fs = 44100    # samples by second
 precision=0.02 # how close to the target pitch do we consider a match
