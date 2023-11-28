@@ -18,7 +18,7 @@ melody_sequence = ['D4', 'E4', 'G4', 'A4', 'G4', 'E4', 'G4', 'A4', 'G4']
 # Grovepi setup
 PORT_BUTTON = 4     # D4
 grovepi.pinMode(PORT_BUTTON, "INPUT")
-lcd.setRGB(204, 153, 255)
+lcd.setRGB(204, 153, 255) # initializes to a nice faint purple
 
 # Function to check if the input frequency matches any pitch range
 def check_pitch(frequency):
@@ -79,7 +79,7 @@ try:
         # Check for input
         if grovepi.digitalRead(PORT_BUTTON):
             print("Button pressed")
-            detect_melody(7)  # Adjust the duration based on your requirement
+            detect_melody(1)  # Adjust the duration based on your requirement
             time.sleep(1)  # Add a delay between each detection to avoid false positives
 except KeyboardInterrupt:
     grovepi.cleanup()
