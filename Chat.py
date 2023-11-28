@@ -24,9 +24,9 @@ lcd.setRGB(204, 153, 255)
 def check_pitch(frequency):
     print("Checking pitch")
     for note, pitch in pitch_ranges.items():
+        print(note)
         if pitch - 5 <= frequency <= pitch + 5:
             return note
-            print(note)
     return None
 
 # Function to record audio and analyze the melody
