@@ -2,6 +2,7 @@ import sounddevice as sd
 import numpy as np
 import time
 import RPi.GPIO as GPIO
+import grove_rgb_lcd as lcd
 
 # Define pitch ranges
 pitch_ranges = {
@@ -15,9 +16,8 @@ pitch_ranges = {
 melody_sequence = ['D4', 'E4', 'G4', 'A4', 'G4', 'E4', 'G4', 'A4', 'G4']
 
 # GPIO setup
-GPIO.setmode(GPIO.BCM)
-GREEN_LED_PIN = 18  # Change this to the GPIO pin connected to your green LED
-GPIO.setup(GREEN_LED_PIN, GPIO.OUT)
+PORT_BUTTON = 4     # D4
+GPIO.pinMode(PORT_BUTTON, "INPUT")
 
 # Function to check if the input frequency matches any pitch range
 def check_pitch(frequency):
@@ -57,16 +57,18 @@ def detect_melody(duration):
                 break
 
         if melody_detected:
-            GPIO.output(GREEN_LED_PIN, GPIO.HIGH)
             print("Melody detected: DEGAGEGAG")
+            lcd.setText_norefresh("Melody is right")
         else:
-            GPIO.output(GREEN_LED_PIN, GPIO.LOW)
             print("Melody not detected")
+            lcd.setText_norefresh("Melody is wrong")
 
 # Main loop
 try:
     while True:
-        detect_melody(7)  # Adjust the duration based on your requirement
-        time.sleep(1)  # Add a delay between each detection to avoid false positives
+        # Check for input
+        if GPIO.digitalRead(PORT_BUTTON):
+            detect_melody(7)  # Adjust the duration based on your requirement
+            time.sleep(1)  # Add a delay between each detection to avoid false positives
 except KeyboardInterrupt:
     GPIO.cleanup()
