@@ -52,26 +52,32 @@ def detect_melody(duration):
     # Check if the dominant frequency corresponds to a note in the melody
     detected_note = check_pitch(dominant_frequency)
 
-    print("Detecting note")
     if detected_note == melody_sequence[0]:
-        print("note detected in melody")
+        lcd.setText_norefresh("Note 1: Correct")
         # If the first note is detected, check for the entire melody sequence
-        melody_detected = True
-        for i in range(1, len(melody_sequence)):
-            time.sleep(0.5)  # Add a short delay between notes
-            detect_melody(1)  # Record the next note
-            if detected_note != melody_sequence[i]:
-                melody_detected = False
-                break
+        
+        time.sleep(0.5)  # Add a short delay between notes
+        detect_melody(3)  # Record the next note
+        if detected_note == melody_sequence[1]:
+            lcd.setText_norefresh("Note 2: Correct")
 
-        if melody_detected:
-            print("Melody detected: DEGAGEGAG")
-            lcd.setText_norefresh("Melody is right")
+            time.sleep(0.5)  # Add a short delay between notes
+            detect_melody(3)  # Record the next note
+
+            if detected_note == melody_sequence[2]:
+                lcd.setText_norefresh("Note 3: Correct")
+
+                time.sleep(0.5)  # Add a short delay between notes
+                detect_melody(3)  # Record the next note
+
+            else:
+                lcd.setText_norefresh("Note 3: Incorrect. Try Again.")
+
         else:
-            print("Melody not detected")
-            lcd.setText_norefresh("Melody is wrong")
+                lcd.setText_norefresh("Note 2: Incorrect. Try Again.")
+
     else:
-        print("note not in melody")
+        lcd.setText_norefresh("Note 1: Incorrect. Try Again.")
 
 # Main loop
 try:
