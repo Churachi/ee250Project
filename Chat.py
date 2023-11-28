@@ -60,19 +60,6 @@ try:
     while True:
         # Check for input
         if grovepi.digitalRead(PORT_BUTTON):
-            print("3")
-            lcd.setText_norefresh("3")
-            time.sleep(1)
-            print("2")
-            lcd.setText_norefresh("2")
-            time.sleep(1)
-            print("1")
-            lcd.setText_norefresh("1")
-            time.sleep(1)
-            print("0")
-            lcd.setText_norefresh("0")
-            time.sleep(1)
-        
             for i in range(0, len(melody_sequence)):
                 lcd.setText_norefresh("Play Note")
                 detected_note = detect_melody(3)  # Adjust the duration based on your requirement
