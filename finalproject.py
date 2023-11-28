@@ -54,7 +54,7 @@ def led_callback(client, userdata, message):
             comment = 'Your child passed!'
         else:
             comment = "Your child did not pass"
-        client.publish("cxzhu/rpi", comment)
+        client.publish("finalproject/rpi", comment)
 
     except ValueError:
         pass
