@@ -8,12 +8,11 @@ from tkinter import ttk
 import sys
 import os
 
+export DISPLAY=localhost:0.0
+
 if os.environ.get('DISPLAY','') == '':
     print('no display found. Using :0.0')
     os.environ.__setitem__('DISPLAY', ':0.0')
-
-setting = os.environ.__getitem__('DISPLAY')
-window = ttk.Tk(screenName = setting)
 
 pitch_ranges = {
     'C4': 523.33,
