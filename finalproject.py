@@ -30,7 +30,7 @@ def on_connect(client, userdata, flags, rc):
 
     #subscribe to topics of interest here
     client.subscribe("finalproject/laptop")
-    client.message_callback_add("cxzhu/laptop",led_callback)
+    client.message_callback_add("finalproject/laptop",led_callback)
 
 def led_callback(client, userdata, message):
     try:
