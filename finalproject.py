@@ -26,13 +26,14 @@ grovepi.pinMode(PORT_BUTTON, "INPUT")
 lcd.setRGB(204, 153, 255) # initializes to a nice faint purple
 
 def on_connect(client, userdata, flags, rc):
+    print("here")
     print("Connected to server (i.e., broker) with result code "+str(rc))
 
     #subscribe to topics of interest here
     client.subscribe("finalproject/laptop")
-    client.message_callback_add("finalproject/laptop",led_callback)
+    client.message_callback_add("finalproject/laptop",laptop_callback)
 
-def led_callback(client, userdata, message):
+def laptop_callback(client, userdata, message):
     try:
         done = False
         passed = True
