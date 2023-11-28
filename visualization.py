@@ -6,7 +6,6 @@ import grove_rgb_lcd as lcd
 from tkinter import *
 from tkinter import ttk
 
-
 pitch_ranges = {
     'C4': 523.33,
     'D4': 293.66,
