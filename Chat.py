@@ -114,6 +114,6 @@ try:
 
             else:
                 lcd.setText_norefresh("Note1: Incorrect.")
-                """
+"""
 except KeyboardInterrupt:
     grovepi.cleanup()
