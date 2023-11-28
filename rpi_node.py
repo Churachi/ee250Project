@@ -7,7 +7,7 @@ import paho.mqtt.client as mqtt
 import time
 
 pitch_ranges = {
-    'C4': 523.33,
+    'C4': 293.66,
     'D4': 293.66,
     'E4': 329.63,
     'F4': 349.23,
