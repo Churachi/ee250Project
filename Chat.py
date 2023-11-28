@@ -79,7 +79,7 @@ try:
                     if i == len(melody_sequence):
                         lcd.setText_norefresh("Congratulations! \nYou finished!")
                 else:
-                    lcd.setText_norefresh("Note%d: Incorrect \nThe note is %s" %(i + 1, melody_sequence[i]))
+                    lcd.setText_norefresh("Note%d: Incorrect The note is %s" %(i + 1, melody_sequence[i]))
                     time.sleep(1)
                     break    
                 
