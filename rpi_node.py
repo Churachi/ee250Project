@@ -6,7 +6,6 @@ import grove_rgb_lcd as lcd
 import paho.mqtt.client as mqtt
 import time
 
-
 pitch_ranges = {
     'C4': 523.33,
     'D4': 293.66,
