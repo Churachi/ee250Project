@@ -36,7 +36,6 @@ lcd.setText_norefresh("")
 
 # Function to check if the input frequency matches any pitch range
 def check_pitch(frequency):
-    print("Checking pitch")
     for note, pitch in pitch_ranges.items():
         print(frequency)
         if pitch - 5 <= frequency <= pitch + 5:
@@ -48,13 +47,10 @@ def detect_melody(duration):
     sample_rate = 44100  # Adjust this based on your microphone's sample rate
 
     # Record audio
-    print("I am recording")
     audio_data = sd.rec(int(sample_rate * duration), channels=1, dtype='int16')
     sd.wait()
-    print("I am done recording")
 
     # Perform Fourier transform
-    print("Performing Fourier")
     fft_result = np.fft.fft(audio_data[:, 0])
     freqs = np.fft.fftfreq(len(fft_result), 1 / sample_rate)
     freqs = freqs[:len(freqs) // 2]
