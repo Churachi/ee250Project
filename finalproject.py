@@ -33,11 +33,11 @@ lcd.setRGB(204, 153, 255) # initializes to a nice faint purple
 class PianoTest:
 
     def __init__(self, root):
+        master = Tkinter.Tk()
+        master.title("Piano Test")
 
-        root.title("Feet to Meters")
-
-        mainframe = ttk.Frame(root, padding="20 20 12 12")
-        mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+        # mainframe = ttk.Frame(root, padding="20 20 12 12")
+        # mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
        
@@ -113,6 +113,6 @@ def detect_melody(duration):
     return check_pitch(dominant_frequency)
 
 
-root = Tk()
-PianoTest(root)
-root.mainloop()
+master = Tk()
+PianoTest(master)
+master.mainloop()
