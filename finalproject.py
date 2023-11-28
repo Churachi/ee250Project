@@ -5,6 +5,12 @@ import grovepi
 import grove_rgb_lcd as lcd
 from tkinter import *
 from tkinter import ttk
+import sys
+import os
+
+if os.environ.get('DISPLAY','') == '':
+    print('no display found. Using :0.0')
+    os.environ.__setitem__('DISPLAY', ':0.0')
 
 pitch_ranges = {
     'C4': 523.33,
