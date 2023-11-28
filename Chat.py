@@ -32,6 +32,7 @@ melody_sequence = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4']
 PORT_BUTTON = 4     # D4
 grovepi.pinMode(PORT_BUTTON, "INPUT")
 lcd.setRGB(204, 153, 255) # initializes to a nice faint purple
+lcd.setText_norefresh("")
 
 # Function to check if the input frequency matches any pitch range
 def check_pitch(frequency):
