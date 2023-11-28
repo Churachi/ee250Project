@@ -26,6 +26,7 @@ def check_pitch(frequency):
     for note, pitch in pitch_ranges.items():
         if pitch - 5 <= frequency <= pitch + 5:
             return note
+            print(note)
     return None
 
 # Function to record audio and analyze the melody
