@@ -81,6 +81,6 @@ try:
                     time.sleep(1)
                     break    
                 
-                lcd.setText_norefresh("Congratulations!/nYou finished!")
+            lcd.setText_norefresh("Congratulations! \nYou finished!")
 except KeyboardInterrupt:
     grovepi.cleanup()
