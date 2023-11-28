@@ -1,4 +1,5 @@
 import sounddevice as sd
+import time
 
 # Define some settings
 device = 1    # we use my USB sound card device
