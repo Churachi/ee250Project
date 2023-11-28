@@ -26,7 +26,6 @@ grovepi.pinMode(PORT_BUTTON, "INPUT")
 lcd.setRGB(204, 153, 255) # initializes to a nice faint purple
 
 def on_connect(client, userdata, flags, rc):
-    print("here")
     print("Connected to server (i.e., broker) with result code "+str(rc))
 
     #subscribe to topics of interest here
@@ -35,6 +34,8 @@ def on_connect(client, userdata, flags, rc):
 
 def laptop_callback(client, userdata, message):
     try:
+        lcd.textCommand(0x01) # clear display
+        lcd.setText("Press button to begin recording")
         done = False
         passed = True
         while done == False:
