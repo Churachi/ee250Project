@@ -78,7 +78,14 @@ try:
     while True:
         # Check for input
         if grovepi.digitalRead(PORT_BUTTON):
-            print("Button pressed")
+            print("3")
+            time.sleep(1)
+            print("2")
+            time.sleep(1)
+            print("1")
+            time.sleep(1)
+            print("0")
+            time.sleep(1)
             detect_melody(1)  # Adjust the duration based on your requirement
             time.sleep(1)  # Add a delay between each detection to avoid false positives
 except KeyboardInterrupt:
