@@ -6,10 +6,13 @@ import grove_rgb_lcd as lcd
 
 # Define pitch ranges
 pitch_ranges = {
+    'C4': 261.63,
     'D4': 293.66,
     'E4': 329.63,
+    'F4': 349.23
     'G4': 392.00,
-    'A4': 440.00
+    'A4': 440.00,
+    'B4': 493.88
 }
 
 # Define the melody sequence
@@ -77,7 +80,7 @@ try:
                     lcd.setText_norefresh("Note%d: Correct" %(i + 1))
                     time.sleep(1)
                 else:
-                    lcd.setText_norefresh("Note%d: Incorrect" %(i + 1))
+                    lcd.setText_norefresh("Note%d: Incorrect \nThe note is %s" %(i + 1, melody_sequence[i]))
                     time.sleep(1)
                     break    
 except KeyboardInterrupt:
