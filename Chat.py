@@ -31,6 +31,7 @@ def detect_melody(duration):
     sample_rate = 44100  # Adjust this based on your microphone's sample rate
 
     # Record audio
+    print("I am recording")
     audio_data = sd.rec(int(sample_rate * duration), channels=1, dtype='int16')
     sd.wait()
 
@@ -66,6 +67,7 @@ def detect_melody(duration):
 # Main loop
 try:
     while True:
+        print("Main Loop is Running")
         # Check for input
         if grovepi.digitalRead(PORT_BUTTON):
             print("Button pressed")
